@@ -21,7 +21,7 @@
 					<%= @book.user.name %>
 					<% end %>
 				</td>
-				<% if @book.user == current_user%>
+				<% if @book.user == current_user %>
 					<td><%= link_to @book.title, @book %></td>
 					<td><%= @book.body %></td>
 					<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
@@ -30,5 +30,37 @@
 				</tr>
 		</table>
 	</div>
-</div>
 
+    <td><%= @book.post_comments.count %>件のコメント</td>
+
+
+<%= form_for [@book, @post_comment] do |f|  %>
+	<div class="row">
+		<div class="col-sm-12">
+			<%= f.text_area :comment, row:'5', class: "form-control", placeholder: "コメントをここに"%>
+		</div>
+		<%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+	</div>
+<% end %>
+
+<% @book.post_comments.each do |p_c| %>
+	<li class="comment">
+			<div class="comment-body bb">
+					<div class="comment-avatar">
+							<div class="avatar">
+									<%= image_tag('sample-author1.jpg', style: "width: 60px; height: 60px;") %>
+							</div>
+					</div>
+					<div class="comment-text">
+							<div class="comment-author clearfix">
+									<a href="#" class="link-author"><%= p_c.user.name %></a>
+									<span class="comment-meta">
+									<span class="comment-date"><%= p_c.created_at.strftime('%Y/%m/%d') %></span>
+									</span>
+							</div>
+							<div class="comment-entry"><%= p_c.comment %></div>
+					</div>
+			</div>
+	</li>
+<% end %>
+</div>
