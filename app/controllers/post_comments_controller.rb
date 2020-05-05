@@ -1,4 +1,4 @@
-
+class PostCommentsController < ApplicationController
 
 def create
   book = Book.find(params[:book_id])
@@ -9,7 +9,18 @@ def create
   redirect_to book_path(book)
 end
 
+def destroy
+  comment = PostComment.find(params[:id])
+  if comment.user == current_user
+    comment.destroy
+    redirect_back(fallback_location: books_path)
+  else
+    redirect_to books_path
+  end
+end
+
 private
-def post_comment_params
-  params.require(:post_comment).permit(:comment)
+  def post_comment_params
+    params.require(:post_comment).permit(:comment, :user_id, :book_id)
+  end
 end
