@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :books
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   #バリデーションは該当するモデルに設定する。エラーにする条件を設定できる。
   validates :name, presence: true,length: {maximum: 20, minimum: 2}
