@@ -9,9 +9,10 @@ class UsersController < ApplicationController
 		@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
   end
 
-  def index
-			@users = User.all #一覧表示するためにUserモデルのデータを全て変数に入れて取り出す。
-			@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+	def index
+		@users = User.all #一覧表示するためにUserモデルのデータを全て変数に入れて取り出す。
+		@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+		
 		end
 
 		def edit
@@ -26,6 +27,16 @@ class UsersController < ApplicationController
 			else
 				render :edit
 			end
+		end
+
+		def follows
+			@user = User.find(params[:user_id])
+			@usersf = @user.followings
+		end
+
+		def followers
+			@user = User.find(params[:user_id])
+			@users = @user.followers
 		end
 
   private
