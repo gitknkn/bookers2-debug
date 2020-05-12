@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 	before_action :authenticate_user!
 	before_action :baria_user, only: [:update, :edit]
 
-
   def show
 		@user = User.find(params[:id])
 		@books = @user.books
